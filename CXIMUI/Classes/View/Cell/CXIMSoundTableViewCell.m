@@ -71,7 +71,9 @@
     CGFloat soundTimeLabel_X = 18.0;
     CGFloat soundTimeLabel_H = 20.0;
     CGFloat soundTimeLabel_Y = (messageModel.contentFrame.size.height - soundTimeLabel_H) * 0.5;
-    CGFloat soundTimeLabel_W = [_soundTimeLabel.text boundingRectWithSize:CGSizeMake(messageModel.contentFrame.size.width - animationView_W - animationView_X, soundTimeLabel_H) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : _soundTimeLabel.font} context:nil].size.width;
+    CGFloat soundTimeLabel_W = [CXStringBounding bounding:_soundTimeLabel.text
+                                             rectWithSize:CGSizeMake(messageModel.contentFrame.size.width - animationView_W - animationView_X, soundTimeLabel_H)
+                                                     font:_soundTimeLabel.font].size.width;
     
     if([messageModel.message isSelf]){
         UIImage *image = CX_IMUI_IMAGE(@"im_msg_bg_self");

@@ -27,12 +27,11 @@ void CXImageWriteToSavedPhotosAlbum(UIImage *image){
             authorizeResultBlock(YES);
         }else{
             [CXAlertControllerUtils showAlertWithConfigBlock:^(CXAlertControllerConfigModel *config) {
-                config.title = @"您无相册访问权限";
-                config.message = [NSString stringWithFormat:@"请打开系统设置中“设置->隐私”，允许“%@”读取和写入您的照片。", [NSBundle mainBundle].cx_appName];
-                config.buttonTitles = @[@"取消", @"去设置"];
+                config.title = [NSString stringWithFormat:@"应用“%@”没有相册访问权限", [NSBundle mainBundle].cx_displayName];
+                config.buttonTitles = @[@"取消", @"去授权"];
             } completion:^(NSUInteger buttonIndex) {
                 if(buttonIndex == 1){
-                    [CXAppUtil openOSSettingPage];
+                    [CXAppUtils openSettingsPage];
                 }
             }];
             authorizeResultBlock(NO);

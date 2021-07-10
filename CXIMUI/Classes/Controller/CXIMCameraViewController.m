@@ -175,10 +175,12 @@ static inline UIImageOrientation CXUIImageOrientationFromDeviceOrientation(UIDev
         case AVAuthorizationStatusRestricted:
         case AVAuthorizationStatusDenied:{
             [CXAlertControllerUtils showAlertWithConfigBlock:^(CXAlertControllerConfigModel *config) {
-                config.title = @"您无相册访问权限";
-                config.message = [NSString stringWithFormat:@"请打开系统设置中“隐私->相机”，允许“%@”访问您的相机。", [NSBundle mainBundle].cx_appName];
+                config.title = [NSString stringWithFormat:@"应用“%@”没有相册访问权限", [NSBundle mainBundle].cx_displayName];
+                config.title = @[@"取消", @"去授权"];
             } completion:^(NSUInteger buttonIndex) {
-                [CXAppUtil openOSSettingPage];
+                if(buttonIndex == 1){
+                    [CXAppUtils openSettingsPage];
+                }
             }];
         }
             break;
@@ -199,8 +201,8 @@ static inline UIImageOrientation CXUIImageOrientationFromDeviceOrientation(UIDev
         case AVAuthorizationStatusRestricted:
         case AVAuthorizationStatusDenied:{
             [CXAlertControllerUtils showAlertWithConfigBlock:^(CXAlertControllerConfigModel *config) {
-                config.title = @"您无麦克风权限";
-                config.message = [NSString stringWithFormat:@"请打开系统设置中“隐私->麦克风”，允许“%@”访问您的麦克风。", [NSBundle mainBundle].cx_appName];
+                config.title = @"你无麦克风权限";
+                config.message = [NSString stringWithFormat:@"请打开系统设置中“隐私->麦克风”，允许“%@”访问你的麦克风。", [NSBundle mainBundle].cx_appName];
             } completion:nil];
         }
             break;
@@ -269,7 +271,7 @@ static inline UIImageOrientation CXUIImageOrientationFromDeviceOrientation(UIDev
     CXAssetsPickerController *assetsPickerController = [[CXAssetsPickerController alloc] initWithAssetsType:CXAssetsPhoto];
     assetsPickerController.delegate = self;
     assetsPickerController.enableMaximumCount = 9;
-    assetsPickerController.finishDismissViewController = NO;
+    assetsPickerController.finishedDismissViewController = NO;
     
     [self presentViewController:assetsPickerController animated:YES completion:NULL];
     self.assetsPickerController = assetsPickerController;
@@ -358,7 +360,7 @@ static inline UIImageOrientation CXUIImageOrientationFromDeviceOrientation(UIDev
             _coverImage = result.coverImage;
         }else{
             UIImageOrientation imageOrientation = CXUIImageOrientationFromDeviceOrientation(_deviceOrientation);
-            _coverImage = [CXImageUtil rotateImageOrientationToUp:result.coverImage orientation:imageOrientation];
+            _coverImage = [CXImageUtils rotateImageOrientationToUp:result.coverImage orientation:imageOrientation];
         }
         
         NSString *imagePath = CXIMImageCacheToDisk(_coverImage, 0);

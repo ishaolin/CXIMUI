@@ -97,12 +97,11 @@ static NSDictionary<NSAttributedStringKey, id> *IMErrorAttributes = nil;
     CGFloat time_Y = 0;
     CGFloat avatar_Y = 20.0;
     
-    if([CXStringUtil isValidString:_time]){
+    if([CXStringUtils isValidString:_time]){
         time_H = 20.0;
-        time_W = [_time boundingRectWithSize:CGSizeMake(screen_W, time_H)
-                                     options:NSStringDrawingUsesLineFragmentOrigin
-                                  attributes:IMTimeAttributes
-                                     context:nil].size.width + 15.0;
+        time_W = [CXStringBounding bounding:_time
+                               rectWithSize:CGSizeMake(screen_W, time_H)
+                                 attributes:IMTimeAttributes].size.width + 15.0;
         time_Y = IM_CONTENT_EDGEINSETS.top;
         time_X = (screen_W - time_W) * 0.5;
         avatar_Y = time_Y + time_H + IM_CONTENT_EDGEINSETS.bottom;
@@ -171,10 +170,9 @@ static NSDictionary<NSAttributedStringKey, id> *IMErrorAttributes = nil;
         UIEdgeInsets IM_TEXT_EDGEINSETS = {top, left, bottom, right};
         TIMTextElem *textElem = (TIMTextElem *)self.elem;
         CGFloat max_W = screen_W - (avatar_H + avatar_L + IM_CONTENT_avatar_M) * 2 - (IM_TEXT_EDGEINSETS.left + IM_TEXT_EDGEINSETS.right);
-        CGSize size = [textElem.text boundingRectWithSize:CGSizeMake(max_W, MAXFLOAT)
-                                                  options:NSStringDrawingUsesLineFragmentOrigin
-                                               attributes:IMTextAttributes
-                                                  context:nil].size;
+        CGSize size = [CXStringBounding bounding:textElem.text
+                                    rectWithSize:CGSizeMake(max_W, MAXFLOAT)
+                                      attributes:IMTextAttributes].size;
         size.width = MAX(size.width, 19.5);
         size.height = MAX(size.height, 19.5);
         
@@ -348,10 +346,9 @@ static NSDictionary<NSAttributedStringKey, id> *IMErrorAttributes = nil;
         _errorMsgFrame = CGRectZero;
         _height = CGRectGetMaxY(_contentFrame) + 5.0;
     }else{
-        CGSize errorMsgSize = [_errorMsg boundingRectWithSize:CGSizeMake(screen_W - avatar_L * 2, MAXFLOAT)
-                                                      options:NSStringDrawingUsesLineFragmentOrigin
-                                                   attributes:IMErrorAttributes
-                                                      context:nil].size;
+        CGSize errorMsgSize = [CXStringBounding bounding:_errorMsg
+                                            rectWithSize:CGSizeMake(screen_W - avatar_L * 2, MAXFLOAT)
+                                              attributes:IMErrorAttributes].size;
         CGFloat errorMsg_X = (screen_W - errorMsgSize.width) * 0.5;
         CGFloat errorMsg_Y = CGRectGetMaxY(_contentFrame) + 20.0;
         CGFloat errorMsg_W = errorMsgSize.width;
@@ -362,10 +359,9 @@ static NSDictionary<NSAttributedStringKey, id> *IMErrorAttributes = nil;
 }
 
 - (void)layoutSysSubviews:(CGFloat)screenWidth{
-    CGSize size = [_sysMsg boundingRectWithSize:CGSizeMake(screenWidth - 40.0, MAXFLOAT)
-                                        options:NSStringDrawingUsesLineFragmentOrigin
-                                     attributes:IMTimeAttributes
-                                        context:nil].size;
+    CGSize size = [CXStringBounding bounding:_sysMsg
+                                rectWithSize:CGSizeMake(screenWidth - 40.0, MAXFLOAT)
+                                  attributes:IMTimeAttributes].size;
     CGFloat sysMsg_W = size.width + 15.0;
     CGFloat sysMsg_H = size.height > 20.0 ? (size.height + 10.0) : 20.0;
     CGFloat sysMsg_X = (screenWidth - sysMsg_W) * 0.5;
@@ -471,7 +467,7 @@ static NSDictionary<NSAttributedStringKey, id> *IMErrorAttributes = nil;
     [info enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         if([obj isKindOfClass:[TIMUserProfile class]]){
             TIMUserProfile *userProfile = obj;
-            if([CXStringUtil isValidString:userProfile.displayName]){
+            if([CXStringUtils isValidString:userProfile.displayName]){
                 [infoString appendFormat:@"、\"%@\"", userProfile.displayName];
             }
         }
