@@ -271,7 +271,6 @@ static inline UIImageOrientation CXUIImageOrientationFromDeviceOrientation(UIDev
     CXAssetsPickerController *assetsPickerController = [[CXAssetsPickerController alloc] initWithAssetsType:CXAssetsPhoto];
     assetsPickerController.delegate = self;
     assetsPickerController.enableMaximumCount = 9;
-    assetsPickerController.finishedDismissViewController = NO;
     
     [self presentViewController:assetsPickerController animated:YES completion:NULL];
     self.assetsPickerController = assetsPickerController;
@@ -322,7 +321,9 @@ static inline UIImageOrientation CXUIImageOrientationFromDeviceOrientation(UIDev
     [[TXUGCRecord shareInstance] stopRecord];
 }
 
-- (void)assetsPickerController:(CXAssetsPickerController *)assetsPickerController didFinishPickingAssets:(NSArray<PHAsset *> *)assets assetsType:(CXAssetsType)assetsType{
+- (void)assetsPickerController:(CXAssetsPickerController *)picker
+        didFinishPickingAssets:(NSArray<PHAsset *> *)assets
+                    assetsType:(CXAssetsType)assetsType{
     [CXHUD showHUD];
     [CXAssetsImageManager requestImageDataForAssets:assets completion:^(NSArray<CXAssetsElementImage *> *images) {
         [CXHUD dismiss];
@@ -337,12 +338,12 @@ static inline UIImageOrientation CXUIImageOrientationFromDeviceOrientation(UIDev
         self->_videoPath = nil;
         self->_imagePaths = imagePaths.copy;
         [self dismissAnimated:NO completion:nil];
-        [assetsPickerController dismissViewControllerAnimated:YES completion:NULL];
+        [picker dismissViewControllerAnimated:YES completion:NULL];
     }];
 }
 
-- (void)assetsPickerController:(CXAssetsPickerController *)assetsPickerController didSelectCountReachedEnableMaximumCount:(NSUInteger)enableMaximumCount{
-    [CXHUD showMsg:[NSString stringWithFormat:@"最多选择%@张图片", @(enableMaximumCount)]];
+- (void)assetsPickerController:(CXAssetsPickerController *)picker didSelectCountReachedEnableMaximumCount:(NSUInteger)enableMaximumCount{
+    [CXHUD showMsg:[NSString stringWithFormat:@"最多选择 %@ 张照片", @(enableMaximumCount)]];
 }
 
 - (void)onRecordComplete:(TXRecordResult *)result{
@@ -388,7 +389,7 @@ NSString *CXIMImageCacheToDisk(UIImage *image, NSUInteger tag){
     
     NSString *imageName = CXCreateCacheFileName([NSString stringWithFormat:@"_%@.jpg", @(tag)]);
     NSString *imagePath = CX_IM_IMAGE_PATH_GET(imageName);
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
     if([[NSFileManager defaultManager] createFileAtPath:imagePath contents:imageData attributes:nil]){
         return imagePath;
     }
