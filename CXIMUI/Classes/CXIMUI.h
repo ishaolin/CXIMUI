@@ -13,7 +13,7 @@
 #import "CXIMCameraViewController.h"
 #import "CXIMChatToolbar.h"
 #import "CXIMRefreshHeader.h"
-#import "NSDate+CXIMExtensions.h"
+#import "NSDate+CXIMUI.h"
 #import "CXIMImageDefines.h"
 #import "CXIMMessageHandler.h"
 #import "CXIMTableViewCell.h"

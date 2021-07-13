@@ -11,9 +11,9 @@
 #import "CXIMImageTableViewCell.h"
 #import "CXIMRefreshHeader.h"
 #import "CXIMCameraViewController.h"
-#import "CXIMMessageModel+CXAssetBrowserSupport.h"
+#import "CXIMMessageModel+CXAssetBrowserSupported.h"
 #import "CXIMImageDefines.h"
-#import "NSDate+CXIMExtensions.h"
+#import "NSDate+CXIMUI.h"
 #import "CXIMMessageHandler.h"
 
 @interface CXIMChatViewController () <CXIMMessageListener, CXIMChatToolbarDelegate, CXIMTableViewCellDelegate, CXAssetBrowserDelegate> {
@@ -582,6 +582,8 @@
 - (void)browser:(CXAssetBrowser *)browser saveAssetToPhotosAlbum:(id)asset{
     if([asset isKindOfClass:[UIImage class]]){
         CXImageWriteToSavedPhotosAlbum((UIImage *)asset);
+    }else if ([asset isKindOfClass:[NSURL class]]){
+        CXVideoWriteToSavedPhotosAlbum(((NSURL *)asset).absoluteString);
     }
 }
 

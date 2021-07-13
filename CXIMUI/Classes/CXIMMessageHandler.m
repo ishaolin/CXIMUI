@@ -8,7 +8,7 @@
 #import "CXIMMessageHandler.h"
 #import <CXFoundation/CXFoundation.h>
 #import "CXIMMessageModel.h"
-#import "TIMMessage+CXExtensions.h"
+#import "TIMMessage+CXIMSDK.h"
 #import "CXIMProfileUtils.h"
 
 @implementation CXIMMessageHandler

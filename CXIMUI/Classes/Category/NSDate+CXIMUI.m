@@ -1,14 +1,14 @@
 //
-//  NSDate+CXIMExtensions.m
+//  NSDate+CXIMUI.m
 //  Pods
 //
 //  Created by wshaolin on 2019/3/25.
 //
 
-#import "NSDate+CXIMExtensions.h"
+#import "NSDate+CXIMUI.h"
 #import <CXFoundation/CXFoundation.h>
 
-@implementation NSDate (CXIMExtensions)
+@implementation NSDate (CXIMUI)
 
 + (NSString *)im_formattingDateToString:(NSDate *)date{
     if(!date){

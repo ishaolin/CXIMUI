@@ -1,13 +1,13 @@
 //
-//  CXIMMessageModel+CXAssetBrowserSupport.m
+//  CXIMMessageModel+CXAssetBrowserSupported.m
 //  Pods
 //
 //  Created by wshaolin on 2019/3/26.
 //
 
-#import "CXIMMessageModel+CXAssetBrowserSupport.h"
+#import "CXIMMessageModel+CXAssetBrowserSupported.h"
 
-@implementation CXIMMessageModel (CXAssetBrowserSupport)
+@implementation CXIMMessageModel (CXAssetBrowserSupported)
 
 - (CXAssetModel *)assetBrowserDataModel{
     if([self.elem isKindOfClass:[TIMImageElem class]]){

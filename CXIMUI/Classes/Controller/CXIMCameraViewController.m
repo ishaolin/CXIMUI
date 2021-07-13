@@ -26,7 +26,7 @@ static inline UIImageOrientation CXUIImageOrientationFromDeviceOrientation(UIDev
     }
 }
 
-@interface CXIMCameraViewController () <CXAnimatedTransitioningSupportor, TXVideoRecordListener, CXIMCameraControlViewDelegate, CXAssetsPickerControllerDelegate, UINavigationControllerDelegate> {
+@interface CXIMCameraViewController () <CXAnimatedTransitioningSupporter, TXVideoRecordListener, CXIMCameraControlViewDelegate, CXAssetsPickerControllerDelegate, UINavigationControllerDelegate> {
     UIView *_preview;
     UIActivityIndicatorView *_indicatorView;
     CXIMCameraControlView *_controlView;
