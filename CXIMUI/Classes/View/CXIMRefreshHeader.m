@@ -21,7 +21,7 @@
         self.stateLabel.font = CX_PingFangSC_RegularFont(10.0);
         self.lastUpdatedTimeLabel.hidden = YES;
         
-        _indicatorView = [CXSystemAdapter grayActivityIndicatorView];
+        _indicatorView = [UIActivityIndicatorView grayIndicatorView];
         _indicatorView.hidesWhenStopped = NO;
         [self addSubview:_indicatorView];
         

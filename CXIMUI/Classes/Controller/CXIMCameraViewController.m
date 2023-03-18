@@ -138,7 +138,7 @@ static inline UIImageOrientation CXUIImageOrientationFromDeviceOrientation(UIDev
     CGFloat controlView_Y = CGRectGetHeight(self.view.bounds) - controlView_H - [UIScreen mainScreen].cx_safeAreaInsets.bottom;
     _controlView.frame = (CGRect){controlView_X, controlView_Y, controlView_W, controlView_H};
     
-    _indicatorView = [CXSystemAdapter largeActivityIndicatorView];
+    _indicatorView = [UIActivityIndicatorView largeIndicatorView];
     [self.view addSubview:_indicatorView];
     CGFloat indicatorView_W = _indicatorView.bounds.size.width;
     CGFloat indicatorView_H = _indicatorView.bounds.size.height;

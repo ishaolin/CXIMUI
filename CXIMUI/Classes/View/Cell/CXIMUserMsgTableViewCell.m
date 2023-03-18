@@ -43,7 +43,7 @@
         [_failedView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleFailedViewTapGestureRecognizer:)]];
         [self.contentView addSubview:_failedView];
         
-        _indicatorView = [CXSystemAdapter grayActivityIndicatorView];
+        _indicatorView = [UIActivityIndicatorView grayIndicatorView];
         [self.contentView addSubview:_indicatorView];
         
         _errorMsgLabel = [[UILabel alloc] init];
